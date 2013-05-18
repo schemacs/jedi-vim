@@ -172,15 +172,16 @@ import vim
 # update the system path, to include the jedi path
 import sys
 import os
-sys.path.insert(0, os.path.join(vim.eval('expand("<sfile>:p:h:h")'), 'jedi'))
+if sys.version_info[0] >= 3 or (sys.version_info[0] == 2 and sys.version_info[1] >= 7):
+    sys.path.insert(0, os.path.join(vim.eval('expand("<sfile>:p:h:h")'), 'jedi'))
 
-# to display errors correctly
-import traceback
+    # to display errors correctly
+    import traceback
 
-# update the sys path to include the jedi_vim script
-sys.path.insert(1, os.path.join(vim.eval('expand("<sfile>:p:h:h")'), 'plugin'))
-import jedi_vim
-sys.path.pop(1)
+    # update the sys path to include the jedi_vim script
+    sys.path.insert(1, os.path.join(vim.eval('expand("<sfile>:p:h:h")'), 'plugin'))
+    import jedi_vim
+    sys.path.pop(1)
 
 PYTHONEOF
 "Python jedi_vim.jedi.set_debug_function(jedi_vim.print_to_stdout, speed=True, warnings=False, notices=False)
